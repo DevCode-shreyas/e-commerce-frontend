@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase";
-import { useLoginMutation } from "../redux/api/userAPI";
+import { getUser, useLoginMutation } from "../redux/api/userAPI";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { MessageResponse } from "../types/api-types";
 import { useDispatch } from "react-redux";
+import { userExist, userNotExist } from "../redux/reducer/userReducer";
 
 const Login = () => {
   const dispatch = useDispatch();
