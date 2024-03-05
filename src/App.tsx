@@ -10,6 +10,7 @@ import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
+import ProtectedRoute from "./components/Protected-Route";
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
@@ -67,9 +68,18 @@ const App = () => {
           <Route path="/search" element={<Search />} />
           <Route path="/cart" element={<Cart />} />
           {/* not Logged In Route */}
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute isAuthenticated={user ? false : true}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
           {/* logged in user Routes */}
-          <Route>
+          <Route
+            element={<ProtectedRoute isAuthenticated={user ? true : false} />}
+          >
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order/:id" element={<OrderDetails />} />
@@ -79,8 +89,8 @@ const App = () => {
             element={
               <ProtectedRoute
                 isAuthenticated={true}
-                adminRoute={true}
-                isAdmin={true}
+                adminOnly={true}
+                admin={user?.role === "admin" ? true : false}
               />
             }
           >
@@ -107,7 +117,7 @@ const App = () => {
               element={<TransactionManagement />}
             />
           </Route>
-          ;
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Suspense>
       <Toaster position="bottom-center" />
