@@ -10,6 +10,10 @@
   box-sizing: border-box;
 }
 
+body {
+  user-select: none;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -18,10 +22,6 @@ a {
 $color1: white;
 $color2: rgb(46, 46, 46);
 $color3: rgb(0, 104, 136);
-
-body {
-  user-select: none;
-}
 
 .red {
   color: red;
@@ -34,12 +34,11 @@ body {
 }
 
 @import "admin-styles/mixin";
-
 @import "home";
-@import "_cart";
-@import "_shipping";
-@import "_login";
-@import "_search";
+@import "cart";
+@import "shipping";
+@import "login";
+@import "search";
 @import "admin-styles/dashboard";
 @import "admin-styles/products";
 @import "admin-styles/chart";
@@ -80,16 +79,15 @@ body {
   button {
     border: none;
     font-size: 1.2rem;
-    background-color: transparent;
     cursor: pointer;
-
+    background-color: transparent;
     &:hover {
       color: $color3;
     }
   }
 
   dialog {
-    border: 1px solid ccc;
+    border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
     width: 100px;
@@ -101,8 +99,29 @@ body {
     }
   }
 }
+.not-found {
+  height: 80vh;
+  @include flex(column);
+  > svg {
+    font-size: 5rem;
+  }
+}
 
-// admin-styles/_mixin.scss
+.checkout-container {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  > form {
+    @include flex(column, flex-start, stretch, 2rem);
+
+    > button {
+      @include btn(1rem, $color3, $color1);
+      width: 100%;
+      font-size: 1.1rem;
+    }
+  }
+}
+
 .admin-container {
   @include grid(1fr 4fr, 2rem);
   height: 100vh;
@@ -254,7 +273,7 @@ body {
 
 .loader {
   width: 100%;
-  height: 100vh;
+  height: 85vh;
   @include flex;
   > div {
     @include square(10rem);
@@ -267,6 +286,20 @@ body {
   }
 }
 
+.skeleton-loader {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-shape {
+  height: 30px;
+  width: 100%;
+  background-color: #ddd;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  animation: skeleon-loading 1.5s infinite;
+}
+
 @keyframes loading-animation {
   to {
     transform: rotateZ(360deg);
@@ -275,5 +308,17 @@ body {
 @keyframes up-and-down {
   to {
     transform: translate(-50%, -20%);
+  }
+}
+
+@keyframes skeleon-loading {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
   }
 }

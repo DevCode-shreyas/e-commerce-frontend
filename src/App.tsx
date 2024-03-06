@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Suspense, lazy, useEffect } from "react";
-import Loader from "./components/Loader";
-import Header from "./components/Header";
-import { Toaster } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
+import { Suspense, lazy, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Loader from "./components/Loader";
+import ProtectedRoute from "./components/Protected-Route";
 import { auth } from "./firebase";
 import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import ProtectedRoute from "./components/Protected-Route";
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
