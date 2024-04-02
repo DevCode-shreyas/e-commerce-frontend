@@ -22,15 +22,15 @@ const Login = () => {
       const provider = new GoogleAuthProvider();
       const { user } = await signInWithPopup(auth, provider);
 
-      console.log({
-        name: user.displayName!,
-        email: user.email!,
-        photo: user.photoURL!,
-        gender,
-        role: "user",
-        dob: date,
-        _id: user.uid,
-      });
+      // console.log({
+      //   name: user.displayName!,
+      //   email: user.email!,
+      //   photo: user.photoURL!,
+      //   gender,
+      //   role: "user",
+      //   dob: date,
+      //   _id: user.uid,
+      // });
 
       const res = await login({
         name: user.displayName!,
